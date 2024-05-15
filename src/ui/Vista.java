@@ -4,6 +4,9 @@
  */
 package ui;
 
+import clases.DatosGraficos;
+import clases.MatrizAdyacencia;
+import clases.PintarDibujos;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,6 +14,23 @@ import javax.swing.JOptionPane;
  * @author sebas
  */
 public class Vista extends javax.swing.JFrame {
+
+    private int numeroTope = 0; // Numero de nodos.
+
+    DatosGraficos arboles = new DatosGraficos();
+
+    public void PintarFiguras(int tope, DatosGraficos arboles) { // Pinta lo que esta antes en el panel.
+        for (int j = 0; j < tope; j++) {
+            for (int k = 0; k < tope; k++) {
+                if (arboles.getmAdyacencia(j, k) == 1) {
+                    PintarDibujos.pinta_Linea(mapPanel.getGraphics(), arboles.getCordeX(j), arboles.getCordeY(j), arboles.getCordeX(k), arboles.getCordeY(k));
+                }
+            }
+        }
+        for (int j = 0; j < tope; j++) {
+            PintarDibujos.pinta_Circulo(mapPanel.getGraphics(), arboles.getCordeX(j), arboles.getCordeY(j), arboles.getNombre(j));
+        }
+    }
 
     /**
      * Creates new form Vista
@@ -44,6 +64,8 @@ public class Vista extends javax.swing.JFrame {
         acercaDeLbl1 = new javax.swing.JLabel();
         buscarBtn = new javax.swing.JPanel();
         buscarLbl = new javax.swing.JLabel();
+        mostrarCaminosBtn = new javax.swing.JPanel();
+        mostrarCaminosLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GrafoITSON");
@@ -224,6 +246,35 @@ public class Vista extends javax.swing.JFrame {
             .addComponent(buscarLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
         );
 
+        mostrarCaminosBtn.setBackground(new java.awt.Color(224, 216, 208));
+        mostrarCaminosBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mostrarCaminosBtn.setPreferredSize(new java.awt.Dimension(220, 36));
+        mostrarCaminosBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mostrarCaminosBtnMouseClicked(evt);
+            }
+        });
+
+        mostrarCaminosLbl.setFont(new java.awt.Font("Ebrima", 1, 20)); // NOI18N
+        mostrarCaminosLbl.setForeground(new java.awt.Color(98, 73, 59));
+        mostrarCaminosLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mostrarCaminosLbl.setText("Mostrar caminos");
+
+        javax.swing.GroupLayout mostrarCaminosBtnLayout = new javax.swing.GroupLayout(mostrarCaminosBtn);
+        mostrarCaminosBtn.setLayout(mostrarCaminosBtnLayout);
+        mostrarCaminosBtnLayout.setHorizontalGroup(
+            mostrarCaminosBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+            .addGroup(mostrarCaminosBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(mostrarCaminosLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+        );
+        mostrarCaminosBtnLayout.setVerticalGroup(
+            mostrarCaminosBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 36, Short.MAX_VALUE)
+            .addGroup(mostrarCaminosBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(mostrarCaminosLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout opcionesPanelLayout = new javax.swing.GroupLayout(opcionesPanel);
         opcionesPanel.setLayout(opcionesPanelLayout);
         opcionesPanelLayout.setHorizontalGroup(
@@ -237,20 +288,22 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(edificioOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(130, Short.MAX_VALUE)
                 .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
                         .addComponent(rutaMasCortalbl, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(131, 131, 131))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
-                        .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(mostrarCaminosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(130, 130, 130))))
         );
         opcionesPanelLayout.setVerticalGroup(
             opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(opcionesPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(rutaMasCortalbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rutaMasCortalbl, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edificioOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +311,9 @@ public class Vista extends javax.swing.JFrame {
                     .addComponent(acercaDeLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(488, 488, 488))
+                .addGap(18, 18, 18)
+                .addComponent(mostrarCaminosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(428, Short.MAX_VALUE))
         );
 
         principalPanel.add(opcionesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 480, 630));
@@ -310,6 +365,35 @@ public class Vista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buscarBtnMouseClicked
 
+    private void mostrarCaminosBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mostrarCaminosBtnMouseClicked
+
+        MatrizAdyacencia m = new MatrizAdyacencia();
+
+        mapPanel.paint(mapPanel.getGraphics());
+
+        int matriz[][] = m.getMatriz();
+
+        int xx1[] = {245, 245, 230, 230, 240, 342, 360, 353, 353, 432, 448, 442, 555, 560, 555};
+        int yy1[] = {80, 183, 260, 355, 445, 327, 370, 416, 460, 305, 370, 445, 328, 374, 418};
+        String nombre[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"};
+
+        for (int i = 0; i < 15; i++) {
+            arboles.setCordeX(i, xx1[i]);
+            arboles.setCordeY(i, yy1[i]);
+            arboles.setNombre(i, nombre[i]);
+        }
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                arboles.setmAdyacencia(i, j, matriz[i][j]);
+            }
+        }
+
+        numeroTope = 15;
+        PintarFiguras(numeroTope, arboles);
+
+    }//GEN-LAST:event_mostrarCaminosBtnMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -350,7 +434,9 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel acercaDeLbl;
     private javax.swing.JLabel acercaDeLbl1;
     private javax.swing.JPanel buscarBtn;
+    private javax.swing.JPanel buscarBtn1;
     private javax.swing.JLabel buscarLbl;
+    private javax.swing.JLabel buscarLbl1;
     private javax.swing.JPanel closeBtn;
     private javax.swing.JLabel closeLbl;
     private javax.swing.JComboBox<String> edificioDestino;
@@ -358,6 +444,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel encabezado;
     private javax.swing.JPanel mapPanel;
     private javax.swing.JLabel mapa;
+    private javax.swing.JPanel mostrarCaminosBtn;
+    private javax.swing.JLabel mostrarCaminosLbl;
     private javax.swing.JPanel opcionesPanel;
     private javax.swing.JPanel principalPanel;
     private javax.swing.JLabel rutaMasCortalbl;
