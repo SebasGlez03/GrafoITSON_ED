@@ -16,11 +16,15 @@ import java.util.Stack;
 public class Prueba2 {
 
     public static void main(String[] args) {
+
         MatrizAdyacencia matrizAdyacencia = new MatrizAdyacencia();
         int[][] matriz = matrizAdyacencia.getMatriz();
         Dijkstra dijkstra = new Dijkstra(matriz);
 
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Prueba 2");
+        System.out.println("");
 
         System.out.println("Seleccione el edificio de origen (1-15): ");
         int origen = scanner.nextInt() - 1;  // Convertimos a índice de matriz (0-14)
