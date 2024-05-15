@@ -58,7 +58,7 @@ public class PintarDibujos {
         ((Graphics2D) g).setColor(Color.BLUE);//PINTANDO TEXTO DE VERTICES(TAMANIO)
         Font fuente = new Font("Monospaced", Font.PLAIN, 12);
         g.setFont(fuente);
-        ((Graphics2D) g).drawString(String.valueOf(tam), xAux, yAux);
+        //((Graphics2D) g).drawString(String.valueOf(tam), xAux, yAux); // Esta linea sirve para dibujar la distancia sobre la linea
     }
 
     public static void pinta_Camino(Graphics g, int x1, int y1, int x2, int y2, Color color) {

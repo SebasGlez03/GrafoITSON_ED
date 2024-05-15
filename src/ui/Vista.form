@@ -62,6 +62,9 @@
               <Color blue="fa" green="f9" red="fb" type="rgb"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="480" y="40" width="630" height="620"/>
@@ -275,11 +278,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="edificioDestino" min="-2" pref="190" max="-2" attributes="0"/>
+                      <Component id="edificioOrigen" min="-2" pref="190" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="acercaDeLbl1" min="-2" pref="20" max="-2" attributes="0"/>
                       <EmptySpace pref="20" max="32767" attributes="0"/>
-                      <Component id="edificioOrigen" min="-2" pref="190" max="-2" attributes="0"/>
+                      <Component id="edificioDestino" min="-2" pref="190" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -293,6 +296,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="mostrarCaminosBtn" min="-2" max="-2" attributes="0"/>
                                   <Component id="buscarBtn" min="-2" max="-2" attributes="0"/>
+                                  <Component id="metrosRecorridos" alignment="1" min="-2" pref="218" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
                           </Group>
@@ -307,49 +311,22 @@
                       <Component id="rutaMasCortalbl" pref="38" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="edificioOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="edificioDestino" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="edificioOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="acercaDeLbl1" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="buscarBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="mostrarCaminosBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="428" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="metrosRecorridos" pref="38" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="378" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JComboBox" name="edificioOrigen">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="15">
-                    <StringItem index="0" value="LV-1500"/>
-                    <StringItem index="1" value="LV-1800"/>
-                    <StringItem index="2" value="LV-1200"/>
-                    <StringItem index="3" value="LV-1100"/>
-                    <StringItem index="4" value="TUTORIAS"/>
-                    <StringItem index="5" value="AV-1600"/>
-                    <StringItem index="6" value="LV-900"/>
-                    <StringItem index="7" value="AV-1500"/>
-                    <StringItem index="8" value="AV-1400"/>
-                    <StringItem index="9" value="LV-800"/>
-                    <StringItem index="10" value="LV-700"/>
-                    <StringItem index="11" value="VIDEOCONFERENCIAS"/>
-                    <StringItem index="12" value="AV-1300"/>
-                    <StringItem index="13" value="AV-1200"/>
-                    <StringItem index="14" value="AV-1100"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edificioOrigenActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
             <Component class="javax.swing.JComboBox" name="edificioDestino">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -379,6 +356,35 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
+            <Component class="javax.swing.JComboBox" name="edificioOrigen">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="15">
+                    <StringItem index="0" value="LV-1500"/>
+                    <StringItem index="1" value="LV-1800"/>
+                    <StringItem index="2" value="LV-1200"/>
+                    <StringItem index="3" value="LV-1100"/>
+                    <StringItem index="4" value="TUTORIAS"/>
+                    <StringItem index="5" value="AV-1600"/>
+                    <StringItem index="6" value="LV-900"/>
+                    <StringItem index="7" value="AV-1500"/>
+                    <StringItem index="8" value="AV-1400"/>
+                    <StringItem index="9" value="LV-800"/>
+                    <StringItem index="10" value="LV-700"/>
+                    <StringItem index="11" value="VIDEOCONFERENCIAS"/>
+                    <StringItem index="12" value="AV-1300"/>
+                    <StringItem index="13" value="AV-1200"/>
+                    <StringItem index="14" value="AV-1100"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edificioOrigenActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
             <Component class="javax.swing.JLabel" name="rutaMasCortalbl">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -401,6 +407,17 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="A"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="metrosRecorridos">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ebrima" size="24" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="3b" green="49" red="62" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="buscarBtn">

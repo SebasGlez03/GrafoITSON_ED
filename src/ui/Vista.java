@@ -4,9 +4,12 @@
  */
 package ui;
 
+import clases.AlgoritmoDijkstra;
 import clases.DatosGraficos;
 import clases.Matrices;
 import clases.PintarDibujos;
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +22,7 @@ public class Vista extends javax.swing.JFrame {
 
     DatosGraficos arboles = new DatosGraficos();
 
-    public void PintarFiguras(int tope, DatosGraficos arboles) { // Pinta lo que esta antes en el panel.
+    public static void PintarFiguras(int tope, DatosGraficos arboles) { // Pinta lo que esta antes en el panel.
         for (int j = 0; j < tope; j++) {
             for (int k = 0; k < tope; k++) {
                 if (arboles.getmAdyacencia(j, k) == 1) {
@@ -58,10 +61,11 @@ public class Vista extends javax.swing.JFrame {
         acercaDe = new javax.swing.JPanel();
         acercaDeLbl = new javax.swing.JLabel();
         opcionesPanel = new javax.swing.JPanel();
-        edificioOrigen = new javax.swing.JComboBox<>();
         edificioDestino = new javax.swing.JComboBox<>();
+        edificioOrigen = new javax.swing.JComboBox<>();
         rutaMasCortalbl = new javax.swing.JLabel();
         acercaDeLbl1 = new javax.swing.JLabel();
+        metrosRecorridos = new javax.swing.JLabel();
         buscarBtn = new javax.swing.JPanel();
         buscarLbl = new javax.swing.JLabel();
         mostrarCaminosBtn = new javax.swing.JPanel();
@@ -198,17 +202,17 @@ public class Vista extends javax.swing.JFrame {
 
         opcionesPanel.setBackground(new java.awt.Color(251, 249, 250));
 
-        edificioOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LV-1500", "LV-1800", "LV-1200", "LV-1100", "TUTORIAS", "AV-1600", "LV-900", "AV-1500", "AV-1400", "LV-800", "LV-700", "VIDEOCONFERENCIAS", "AV-1300", "AV-1200", "AV-1100" }));
-        edificioOrigen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edificioOrigenActionPerformed(evt);
-            }
-        });
-
         edificioDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LV-1500", "LV-1800", "LV-1200", "LV-1100", "TUTORIAS", "AV-1600", "LV-900", "AV-1500", "AV-1400", "LV-800", "LV-700", "VIDEOCONFERENCIAS", "AV-1300", "AV-1200", "AV-1100" }));
         edificioDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edificioDestinoActionPerformed(evt);
+            }
+        });
+
+        edificioOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LV-1500", "LV-1800", "LV-1200", "LV-1100", "TUTORIAS", "AV-1600", "LV-900", "AV-1500", "AV-1400", "LV-800", "LV-700", "VIDEOCONFERENCIAS", "AV-1300", "AV-1200", "AV-1100" }));
+        edificioOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edificioOrigenActionPerformed(evt);
             }
         });
 
@@ -221,6 +225,10 @@ public class Vista extends javax.swing.JFrame {
         acercaDeLbl1.setForeground(new java.awt.Color(98, 73, 59));
         acercaDeLbl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         acercaDeLbl1.setText("A");
+
+        metrosRecorridos.setFont(new java.awt.Font("Ebrima", 1, 24)); // NOI18N
+        metrosRecorridos.setForeground(new java.awt.Color(98, 73, 59));
+        metrosRecorridos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         buscarBtn.setBackground(new java.awt.Color(224, 216, 208));
         buscarBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -281,11 +289,11 @@ public class Vista extends javax.swing.JFrame {
             opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(edificioDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edificioOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(acercaDeLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(edificioOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edificioDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
                 .addContainerGap(130, Short.MAX_VALUE)
@@ -296,7 +304,8 @@ public class Vista extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
                         .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(mostrarCaminosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(metrosRecorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(130, 130, 130))))
         );
         opcionesPanelLayout.setVerticalGroup(
@@ -306,14 +315,16 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(rutaMasCortalbl, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edificioOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edificioDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edificioOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(acercaDeLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(mostrarCaminosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(428, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(metrosRecorridos, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addGap(378, 378, 378))
         );
 
         principalPanel.add(opcionesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 480, 630));
@@ -353,16 +364,144 @@ public class Vista extends javax.swing.JFrame {
                                             """, "Hecho por:", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_acercaDeMouseClicked
 
-    private void edificioOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edificioOrigenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edificioOrigenActionPerformed
-
     private void edificioDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edificioDestinoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edificioDestinoActionPerformed
 
-    private void buscarBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarBtnMouseClicked
+    private void edificioOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edificioOrigenActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_edificioOrigenActionPerformed
+
+    private void buscarBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarBtnMouseClicked
+        int origen = 0, destino = 0;
+        String nombreOrigen, nombreDestino;
+        nombreOrigen = (String) edificioOrigen.getSelectedItem();
+        nombreDestino = (String) edificioDestino.getSelectedItem();
+
+        try {
+            switch (nombreOrigen) {
+                case "LV-1500":
+                    origen = 0;
+                    break;
+                case "LV-1800":
+                    origen = 1;
+                    break;
+                case "LV-1200":
+                    origen = 2;
+                    break;
+                case "LV-1100":
+                    origen = 3;
+                    break;
+                case "TUTORIAS":
+                    origen = 4;
+                    break;
+                case "AV-1600":
+                    origen = 5;
+                    break;
+                case "LV-900":
+                    origen = 6;
+                    break;
+                case "AV-1500":
+                    origen = 7;
+                    break;
+                case "AV-1400":
+                    origen = 8;
+                    break;
+                case "LV-800":
+                    origen = 9;
+                    break;
+                case "LV-700":
+                    origen = 10;
+                    break;
+                case "VIDEOCONFERENCIAS":
+                    origen = 11;
+                    break;
+                case "AV-1300":
+                    origen = 12;
+                    break;
+                case "AV-1200":
+                    origen = 13;
+                    break;
+                case "AV-1100":
+                    origen = 14;
+                    break;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, """
+                                                Ha ocurrido un error inesperado.
+                                                (Opcion de origen inexistente).
+                                                El programa se cerrara.
+                                                """, "ERROR", JOptionPane.ERROR_MESSAGE);
+            dispose();
+        }
+
+        try {
+            switch (nombreDestino) {
+                case "LV-1500":
+                    destino = 0;
+                    break;
+                case "LV-1800":
+                    destino = 1;
+                    break;
+                case "LV-1200":
+                    destino = 2;
+                    break;
+                case "LV-1100":
+                    destino = 3;
+                    break;
+                case "TUTORIAS":
+                    destino = 4;
+                    break;
+                case "AV-1600":
+                    destino = 5;
+                    break;
+                case "LV-900":
+                    destino = 6;
+                    break;
+                case "AV-1500":
+                    destino = 7;
+                    break;
+                case "AV-1400":
+                    destino = 8;
+                    break;
+                case "LV-800":
+                    destino = 9;
+                    break;
+                case "LV-700":
+                    destino = 10;
+                    break;
+                case "VIDEOCONFERENCIAS":
+                    destino = 11;
+                    break;
+                case "AV-1300":
+                    destino = 12;
+                    break;
+                case "AV-1200":
+                    destino = 13;
+                    break;
+                case "AV-1100":
+                    destino = 14;
+                    break;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, """
+                                                Ha ocurrido un error inesperado.
+                                                (Opcion de destino inexistente).
+                                                El programa se cerrara.
+                                                """, "ERROR", JOptionPane.ERROR_MESSAGE);
+            dispose();
+        }
+
+        if (origen == destino) {
+            JOptionPane.showMessageDialog(null, "Estas en: " + nombreOrigen);
+
+        } else {
+            AlgoritmoDijkstra d = new AlgoritmoDijkstra(arboles, numeroTope, origen, destino);
+            d.dijkstra();
+
+            metrosRecorridos.setText(d.getAcumulado() + " Metros");
+        }
+
     }//GEN-LAST:event_buscarBtnMouseClicked
 
     private void mostrarCaminosBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mostrarCaminosBtnMouseClicked
@@ -376,7 +515,8 @@ public class Vista extends javax.swing.JFrame {
 
         int xx1[] = {245, 245, 230, 230, 240, 342, 360, 353, 353, 432, 448, 442, 555, 560, 555};
         int yy1[] = {80, 183, 260, 355, 445, 327, 370, 416, 460, 305, 370, 445, 328, 374, 418};
-        String nombre[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"};
+        String nombre[] = {"LV-1500", "LV-1800", "LV-1200", "LV-1100", "TUTORIAS", "AV-1600", "LV-900", "AV-1500",
+            "AV-1400", "LV-800", "LV-700", "VIDEOCONFERENCIAS", "AV-1300", "AV-1200", "AV-1100"};
 
         for (int i = 0; i < 15; i++) {
             arboles.setCordeX(i, xx1[i]);
@@ -444,8 +584,9 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> edificioDestino;
     private javax.swing.JComboBox<String> edificioOrigen;
     private javax.swing.JPanel encabezado;
-    private javax.swing.JPanel mapPanel;
+    public static javax.swing.JPanel mapPanel;
     private javax.swing.JLabel mapa;
+    private javax.swing.JLabel metrosRecorridos;
     private javax.swing.JPanel mostrarCaminosBtn;
     private javax.swing.JLabel mostrarCaminosLbl;
     private javax.swing.JPanel opcionesPanel;
