@@ -10,7 +10,7 @@ package clases;
  *
  * @author sebas
  */
-public class MatrizAdyacencia {
+public class Matrices {
 
     /*
     1. LV-1500
@@ -31,7 +31,7 @@ public class MatrizAdyacencia {
     
     (se muestran las distancias en metros)
      */
-    private int[][] matrizDefault = {
+    private int[][] matrizCoeficiencia = {
         {0, 38, 0, 0, 0, 119, 0, 0, 0, 146, 0, 0, 190, 0, 0},
         {38, 0, 57, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 57, 0, 42, 0, 32, 47, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -49,46 +49,73 @@ public class MatrizAdyacencia {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19, 20, 0, 15, 0}
     };
 
+    private int[][] matrizAdyacencia = {
+        {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0},
+        {1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0},
+        {1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0},
+        {0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0},
+        {0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0},
+        {0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
+        {1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0},
+        {0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1},
+        {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0}
+    };
+
     /**
      * Constructor por omision.
      */
-    public MatrizAdyacencia() {
+    public Matrices() {
 
     }
 
     /**
-     * Obtiene la matriz default.
+     * Obtiene la matriz de coeficiencia.
      *
-     * @return matriz default.
+     * @return matriz de coeficiencia.
      */
     public int[][] getMatriz() {
-        return matrizDefault;
+        return matrizCoeficiencia;
+    }
+
+    /**
+     * Obtiene la matriz de adyacencia
+     *
+     * @return matriz de adyacencia.
+     */
+    public int[][] getMatrizAdyacencia() {
+        return matrizAdyacencia;
     }
 
     /**
      * Metodo para obtener un valor de una posicion especifica dentro de la
-     * matriz.
+     * matriz de coeficiencia.
      *
      * @param fila posicion de la fila de la matriz.
      * @param columna posicion de la columna de la matriz.
      * @return valor de la posicion dada.
      */
     public int obtenerDistancia(int fila, int columna) {
-        return matrizDefault[fila][columna];
+        return matrizCoeficiencia[fila][columna];
     }
 
     /**
      * Metodo para cambiar el valor de la distancia de una posicion dentro de la
-     * matriz.
+     * matriz de coeficiencia.
      *
      * @param dato nuevo valor de la distancia.
      * @param fila posicion de la fila de la matriz.
      * @param columna posicion de la columna de la matriz.
      */
     public void cambiarDistancia(int dato, int fila, int columna) {
-        matrizDefault[fila][columna] = dato;
+        matrizCoeficiencia[fila][columna] = dato;
         // Esta se encarga de cambiar de igual forma el dato espejo
-        matrizDefault[columna][fila] = dato;
+        matrizCoeficiencia[columna][fila] = dato;
     }
 
 }

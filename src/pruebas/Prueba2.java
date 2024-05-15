@@ -5,7 +5,7 @@
 package pruebas;
 
 import clases.Dijkstra;
-import clases.MatrizAdyacencia;
+import clases.Matrices;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -17,8 +17,8 @@ public class Prueba2 {
 
     public static void main(String[] args) {
 
-        MatrizAdyacencia matrizAdyacencia = new MatrizAdyacencia();
-        int[][] matriz = matrizAdyacencia.getMatriz();
+        Matrices m = new Matrices();
+        int[][] matriz = m.getMatriz();
         Dijkstra dijkstra = new Dijkstra(matriz);
 
         Scanner scanner = new Scanner(System.in);

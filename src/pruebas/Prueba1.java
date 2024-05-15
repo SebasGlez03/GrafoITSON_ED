@@ -4,7 +4,7 @@
  */
 package pruebas;
 
-import clases.MatrizAdyacencia;
+import clases.Matrices;
 
 /**
  *
@@ -14,7 +14,7 @@ public class Prueba1 {
 
     public static void main(String[] args) {
 
-        MatrizAdyacencia m = new MatrizAdyacencia();
+        Matrices m = new Matrices();
 
         System.out.println("Cant. filas: " + m.getMatriz().length);
         System.out.println("Cant. columnas: " + m.getMatriz()[0].length);

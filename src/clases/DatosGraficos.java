@@ -10,9 +10,10 @@ package clases;
  */
 public class DatosGraficos {
 
-    MatrizAdyacencia m = new MatrizAdyacencia();
+    Matrices m = new Matrices();
 
-    private int matriz[][] = m.getMatriz();
+    private int matrizCoeficiente[][] = m.getMatriz();
+    private int matrizAdyacencia[][] = m.getMatrizAdyacencia();
     private int coordenadaX[] = new int[15];
     private int coordenadaY[] = new int[15];
     private String nombre[] = new String[15];
@@ -22,8 +23,12 @@ public class DatosGraficos {
 
     }
 
+    public int getmCoeficiente(int i, int j) {
+        return matrizCoeficiente[i][j];
+    }
+
     public int getmAdyacencia(int i, int j) {
-        return matriz[i][j];
+        return matrizAdyacencia[i][j];
     }
 
     public int getCordeX(int i) {
@@ -42,8 +47,12 @@ public class DatosGraficos {
         return enArbol[i];
     }
 
+    public void setmCoeficiente(int i, int j, int mCoeficiente) {
+        this.matrizCoeficiente[i][j] = mCoeficiente;
+    }
+
     public void setmAdyacencia(int i, int j, int mAdyacencia) {
-        this.matriz[i][j] = mAdyacencia;
+        this.matrizAdyacencia[i][j] = mAdyacencia;
     }
 
     public void setCordeX(int i, int cordeX) {

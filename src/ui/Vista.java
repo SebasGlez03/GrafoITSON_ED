@@ -5,7 +5,7 @@
 package ui;
 
 import clases.DatosGraficos;
-import clases.MatrizAdyacencia;
+import clases.Matrices;
 import clases.PintarDibujos;
 import javax.swing.JOptionPane;
 
@@ -23,7 +23,7 @@ public class Vista extends javax.swing.JFrame {
         for (int j = 0; j < tope; j++) {
             for (int k = 0; k < tope; k++) {
                 if (arboles.getmAdyacencia(j, k) == 1) {
-                    PintarDibujos.pinta_Linea(mapPanel.getGraphics(), arboles.getCordeX(j), arboles.getCordeY(j), arboles.getCordeX(k), arboles.getCordeY(k));
+                    PintarDibujos.pinta_Linea(mapPanel.getGraphics(), arboles.getCordeX(j), arboles.getCordeY(j), arboles.getCordeX(k), arboles.getCordeY(k), arboles.getmCoeficiente(j, k));
                 }
             }
         }
@@ -367,11 +367,12 @@ public class Vista extends javax.swing.JFrame {
 
     private void mostrarCaminosBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mostrarCaminosBtnMouseClicked
 
-        MatrizAdyacencia m = new MatrizAdyacencia();
+        Matrices m = new Matrices();
 
         mapPanel.paint(mapPanel.getGraphics());
 
-        int matriz[][] = m.getMatriz();
+        int matrizCoeficiencia[][] = m.getMatriz();
+        int matrizAdyacencia[][] = m.getMatrizAdyacencia();
 
         int xx1[] = {245, 245, 230, 230, 240, 342, 360, 353, 353, 432, 448, 442, 555, 560, 555};
         int yy1[] = {80, 183, 260, 355, 445, 327, 370, 416, 460, 305, 370, 445, 328, 374, 418};
@@ -385,7 +386,8 @@ public class Vista extends javax.swing.JFrame {
 
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                arboles.setmAdyacencia(i, j, matriz[i][j]);
+                arboles.setmAdyacencia(i, j, matrizAdyacencia[i][j]);
+                arboles.setmCoeficiente(i, j, matrizCoeficiencia[i][j]);
             }
         }
 

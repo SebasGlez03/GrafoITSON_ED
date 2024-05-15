@@ -36,7 +36,7 @@ public class PintarDibujos {
 
     }
 
-    public static void pinta_Linea(Graphics g, int x1, int y1, int x2, int y2) {
+    public static void pinta_Linea(Graphics g, int x1, int y1, int x2, int y2, int tam) {
         int xAux = 0;
         int yAux = 0;
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -58,6 +58,7 @@ public class PintarDibujos {
         ((Graphics2D) g).setColor(Color.BLUE);//PINTANDO TEXTO DE VERTICES(TAMANIO)
         Font fuente = new Font("Monospaced", Font.PLAIN, 12);
         g.setFont(fuente);
+        ((Graphics2D) g).drawString(String.valueOf(tam), xAux, yAux);
     }
 
     public static void pinta_Camino(Graphics g, int x1, int y1, int x2, int y2, Color color) {
