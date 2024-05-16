@@ -84,12 +84,30 @@ public class Matrices {
     }
 
     /**
+     * Establece un nuevo valor a la matriz de coeficiencia.
+     *
+     * @param matrizCoeficiencia nuevos valores para la matriz de coeficiencia.
+     */
+    public void setMatrizCoeficiencia(int[][] matrizCoeficiencia) {
+        this.matrizCoeficiencia = matrizCoeficiencia;
+    }
+
+    /**
      * Obtiene la matriz de adyacencia
      *
      * @return matriz de adyacencia.
      */
     public int[][] getMatrizAdyacencia() {
         return matrizAdyacencia;
+    }
+
+    /**
+     * Establece un nuevo valor a la matriz de adyacencia.
+     *
+     * @param matrizAdyacencia nuevos valores para la matriz de adyacencia.
+     */
+    public void setMatrizAdyacencia(int[][] matrizAdyacencia) {
+        this.matrizAdyacencia = matrizAdyacencia;
     }
 
     /**
@@ -113,9 +131,33 @@ public class Matrices {
      * @param columna posicion de la columna de la matriz.
      */
     public void cambiarDistancia(int dato, int fila, int columna) {
-        matrizCoeficiencia[fila][columna] = dato;
-        // Esta se encarga de cambiar de igual forma el dato espejo
-        matrizCoeficiencia[columna][fila] = dato;
+        if (matrizCoeficiencia[fila][columna] > 0) {
+            matrizCoeficiencia[fila][columna] = dato;
+            // Esta se encarga de cambiar de igual forma el dato espejo
+            matrizCoeficiencia[columna][fila] = dato;
+        } else {
+            System.out.println("No existe conexcion de nodos en esta posicion");
+        }
+    }
+
+    /**
+     * Metodo para eliminar las conecciones de un nodo en la matriz de
+     * adyacencia
+     *
+     * @param numNodo numero del nodo al que se eliminara la adyacencia.
+     */
+    public void eliminarNodo(int numNodo) {
+        for (int i = 0; matrizAdyacencia.length > i; i++) {
+            if (matrizAdyacencia[numNodo - 1][i] == 1) {
+                // Elimina las filas 
+                matrizAdyacencia[numNodo - 1][i] = 0;
+                matrizCoeficiencia[numNodo - 1][i] = 0;
+
+                // Elimina las columnas
+                matrizAdyacencia[i][numNodo - 1] = 0;
+                matrizCoeficiencia[i][numNodo - 1] = 0;
+            }
+        }
     }
 
 }
