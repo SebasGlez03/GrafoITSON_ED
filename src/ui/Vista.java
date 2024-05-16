@@ -8,8 +8,7 @@ import clases.AlgoritmoDijkstra;
 import clases.DatosGraficos;
 import clases.Matrices;
 import clases.PintarDibujos;
-import java.awt.Color;
-import java.awt.Font;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +18,7 @@ import javax.swing.JOptionPane;
 public class Vista extends javax.swing.JFrame {
 
     private int numeroTope = 0; // Numero de nodos.
+    private Matrices m = new Matrices();
 
     DatosGraficos arboles = new DatosGraficos();
 
@@ -33,6 +33,17 @@ public class Vista extends javax.swing.JFrame {
         for (int j = 0; j < tope; j++) {
             PintarDibujos.pinta_Circulo(mapPanel.getGraphics(), arboles.getCordeX(j), arboles.getCordeY(j), arboles.getNombre(j));
         }
+    }
+
+    private void actualizarComboBox() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+
+        // Agregar números del 1 al 15
+        for (int i = 0; m.getMatriz().length + 1 > i; i++) {
+            model.addElement(String.valueOf(i));
+        }
+
+        eliminarCb.setModel(model);
     }
 
     /**
@@ -61,6 +72,7 @@ public class Vista extends javax.swing.JFrame {
         acercaDe = new javax.swing.JPanel();
         acercaDeLbl = new javax.swing.JLabel();
         opcionesPanel = new javax.swing.JPanel();
+        separador = new javax.swing.JSeparator();
         edificioDestino = new javax.swing.JComboBox<>();
         edificioOrigen = new javax.swing.JComboBox<>();
         rutaMasCortalbl = new javax.swing.JLabel();
@@ -70,6 +82,15 @@ public class Vista extends javax.swing.JFrame {
         buscarLbl = new javax.swing.JLabel();
         mostrarCaminosBtn = new javax.swing.JPanel();
         mostrarCaminosLbl = new javax.swing.JLabel();
+        eliminarBtn = new javax.swing.JPanel();
+        eliminarLbl = new javax.swing.JLabel();
+        eliminarNodoLbl = new javax.swing.JLabel();
+        eliminarCb = new javax.swing.JComboBox<>();
+        separador1 = new javax.swing.JSeparator();
+        eliminarExitosoLbl = new javax.swing.JLabel();
+        eliminarNodoLbl1 = new javax.swing.JLabel();
+        eliminarBtn1 = new javax.swing.JPanel();
+        eliminarLbl1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GrafoITSON");
@@ -202,6 +223,8 @@ public class Vista extends javax.swing.JFrame {
 
         opcionesPanel.setBackground(new java.awt.Color(251, 249, 250));
 
+        separador.setForeground(new java.awt.Color(224, 216, 208));
+
         edificioDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LV-1500", "LV-1800", "LV-1200", "LV-1100", "TUTORIAS", "AV-1600", "LV-900", "AV-1500", "AV-1400", "LV-800", "LV-700", "VIDEOCONFERENCIAS", "AV-1300", "AV-1200", "AV-1100" }));
         edificioDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -283,6 +306,82 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(mostrarCaminosLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
         );
 
+        eliminarBtn.setBackground(new java.awt.Color(224, 216, 208));
+        eliminarBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        eliminarBtn.setPreferredSize(new java.awt.Dimension(220, 36));
+        eliminarBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eliminarBtnMouseClicked(evt);
+            }
+        });
+
+        eliminarLbl.setFont(new java.awt.Font("Ebrima", 1, 20)); // NOI18N
+        eliminarLbl.setForeground(new java.awt.Color(98, 73, 59));
+        eliminarLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eliminarLbl.setText("Eliminar");
+
+        javax.swing.GroupLayout eliminarBtnLayout = new javax.swing.GroupLayout(eliminarBtn);
+        eliminarBtn.setLayout(eliminarBtnLayout);
+        eliminarBtnLayout.setHorizontalGroup(
+            eliminarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+            .addGroup(eliminarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(eliminarLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+        );
+        eliminarBtnLayout.setVerticalGroup(
+            eliminarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 36, Short.MAX_VALUE)
+            .addGroup(eliminarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(eliminarLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+        );
+
+        eliminarNodoLbl.setFont(new java.awt.Font("Ebrima", 1, 24)); // NOI18N
+        eliminarNodoLbl.setForeground(new java.awt.Color(98, 73, 59));
+        eliminarNodoLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eliminarNodoLbl.setText("Eliminar conexiónes de un nodo");
+
+        eliminarCb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null }));
+
+        separador1.setForeground(new java.awt.Color(224, 216, 208));
+
+        eliminarExitosoLbl.setFont(new java.awt.Font("Ebrima", 1, 24)); // NOI18N
+        eliminarExitosoLbl.setForeground(new java.awt.Color(98, 73, 59));
+        eliminarExitosoLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        eliminarNodoLbl1.setFont(new java.awt.Font("Ebrima", 1, 24)); // NOI18N
+        eliminarNodoLbl1.setForeground(new java.awt.Color(98, 73, 59));
+        eliminarNodoLbl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eliminarNodoLbl1.setText("Agregar Conexiónes");
+
+        eliminarBtn1.setBackground(new java.awt.Color(224, 216, 208));
+        eliminarBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        eliminarBtn1.setPreferredSize(new java.awt.Dimension(220, 36));
+        eliminarBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eliminarBtn1MouseClicked(evt);
+            }
+        });
+
+        eliminarLbl1.setFont(new java.awt.Font("Ebrima", 1, 20)); // NOI18N
+        eliminarLbl1.setForeground(new java.awt.Color(98, 73, 59));
+        eliminarLbl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eliminarLbl1.setText("Agregar");
+
+        javax.swing.GroupLayout eliminarBtn1Layout = new javax.swing.GroupLayout(eliminarBtn1);
+        eliminarBtn1.setLayout(eliminarBtn1Layout);
+        eliminarBtn1Layout.setHorizontalGroup(
+            eliminarBtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(eliminarBtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(eliminarLbl1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+        );
+        eliminarBtn1Layout.setVerticalGroup(
+            eliminarBtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 36, Short.MAX_VALUE)
+            .addGroup(eliminarBtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(eliminarLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout opcionesPanelLayout = new javax.swing.GroupLayout(opcionesPanel);
         opcionesPanel.setLayout(opcionesPanelLayout);
         opcionesPanelLayout.setHorizontalGroup(
@@ -296,7 +395,13 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(edificioDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(separador))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(separador1))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
                         .addComponent(rutaMasCortalbl, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,13 +411,28 @@ public class Vista extends javax.swing.JFrame {
                             .addComponent(mostrarCaminosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(metrosRecorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(130, 130, 130))))
+                        .addGap(130, 130, 130))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
+                        .addComponent(eliminarNodoLbl)
+                        .addGap(65, 65, 65))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
+                        .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(eliminarExitosoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(eliminarCb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(eliminarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(130, 130, 130))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
+                        .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(eliminarNodoLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(eliminarBtn1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+                        .addGap(122, 122, 122))))
         );
         opcionesPanelLayout.setVerticalGroup(
             opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(opcionesPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(rutaMasCortalbl, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(rutaMasCortalbl, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edificioDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -323,8 +443,24 @@ public class Vista extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(mostrarCaminosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(metrosRecorridos, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                .addGap(378, 378, 378))
+                .addComponent(metrosRecorridos, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eliminarNodoLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eliminarCb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(eliminarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(eliminarExitosoLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(separador1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eliminarNodoLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addGap(75, 75, 75)
+                .addComponent(eliminarBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
 
         principalPanel.add(opcionesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 480, 630));
@@ -506,8 +642,7 @@ public class Vista extends javax.swing.JFrame {
 
     private void mostrarCaminosBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mostrarCaminosBtnMouseClicked
 
-        Matrices m = new Matrices();
-
+        // Matrices m = new Matrices();
         mapPanel.paint(mapPanel.getGraphics());
 
         int matrizCoeficiencia[][] = m.getMatriz();
@@ -534,7 +669,27 @@ public class Vista extends javax.swing.JFrame {
         numeroTope = 15;
         PintarFiguras(numeroTope, arboles);
 
+        // opcion para actualizar el comboBox
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+
+        // Agregar números del 1 al 15
+        for (int i = 0; m.getMatriz().length > i; i++) {
+            model.addElement(String.valueOf(i + 1));
+        }
+
+        // Actualizacion del comboBox eliminar
+        actualizarComboBox();
+
     }//GEN-LAST:event_mostrarCaminosBtnMouseClicked
+
+    private void eliminarBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarBtnMouseClicked
+        m.eliminarNodo(eliminarCb.getSelectedIndex());
+        eliminarExitosoLbl.setText("Eliminacion exitosa!");
+    }//GEN-LAST:event_eliminarBtnMouseClicked
+
+    private void eliminarBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarBtn1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -576,13 +731,19 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel acercaDeLbl;
     private javax.swing.JLabel acercaDeLbl1;
     private javax.swing.JPanel buscarBtn;
-    private javax.swing.JPanel buscarBtn1;
     private javax.swing.JLabel buscarLbl;
-    private javax.swing.JLabel buscarLbl1;
     private javax.swing.JPanel closeBtn;
     private javax.swing.JLabel closeLbl;
     private javax.swing.JComboBox<String> edificioDestino;
     private javax.swing.JComboBox<String> edificioOrigen;
+    private javax.swing.JPanel eliminarBtn;
+    private javax.swing.JPanel eliminarBtn1;
+    private javax.swing.JComboBox<String> eliminarCb;
+    private javax.swing.JLabel eliminarExitosoLbl;
+    private javax.swing.JLabel eliminarLbl;
+    private javax.swing.JLabel eliminarLbl1;
+    private javax.swing.JLabel eliminarNodoLbl;
+    private javax.swing.JLabel eliminarNodoLbl1;
     private javax.swing.JPanel encabezado;
     public static javax.swing.JPanel mapPanel;
     private javax.swing.JLabel mapa;
@@ -592,6 +753,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel opcionesPanel;
     private javax.swing.JPanel principalPanel;
     private javax.swing.JLabel rutaMasCortalbl;
+    private javax.swing.JSeparator separador;
+    private javax.swing.JSeparator separador1;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

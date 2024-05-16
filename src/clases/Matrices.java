@@ -160,4 +160,36 @@ public class Matrices {
         }
     }
 
+    public void agregarNodo(int numNodo) {
+        int nuevoTamaño = matrizAdyacencia.length + 1;
+        int[][] nuevaMatrizAdyacencia = new int[nuevoTamaño][nuevoTamaño];
+        int[][] nuevaMatrizCoeficiencia = new int[nuevoTamaño][nuevoTamaño];
+
+        // Copiar los valores existentes a la nueva matriz
+        for (int i = 0; i < matrizAdyacencia.length; i++) {
+            System.arraycopy(matrizAdyacencia[i], 0, nuevaMatrizAdyacencia[i],
+                    0, matrizAdyacencia[i].length);
+            System.arraycopy(matrizCoeficiencia[i], 0, nuevaMatrizCoeficiencia[i],
+                    0, matrizCoeficiencia[i].length);
+        }
+
+        // Establecer las conexiones para el nuevo nodo con los nodos existentes (por ejemplo, aquí suponiendo que el nuevo nodo se conecta con todos los nodos existentes)
+        for (int i = 0; i < nuevoTamaño - 1; i++) {
+            nuevaMatrizAdyacencia[i][nuevoTamaño - 1] = 1; // Conexión del nuevo nodo con los nodos existentes
+            nuevaMatrizAdyacencia[nuevoTamaño - 1][i] = 1; // Conexión de los nodos existentes con el nuevo nodo
+            // Similar para la matriz de coeficiencia si es necesario
+        }
+
+        // Ahora puedes asignar las nuevas matrices a las originales si lo deseas
+        matrizAdyacencia = nuevaMatrizAdyacencia;
+        matrizCoeficiencia = nuevaMatrizCoeficiencia;
+    }
+
+    public int[] getSize() {
+        int[] size = new int[2];
+        size[0] = matrizAdyacencia.length;       // Número de filas
+        size[1] = matrizAdyacencia[0].length;    // Número de columnas
+        return size;
+    }
+
 }

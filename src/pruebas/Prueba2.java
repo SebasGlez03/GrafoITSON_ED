@@ -73,6 +73,30 @@ public class Prueba2 {
         System.out.println("");
         //-----------------------------------------------------------------------------------
 
+        System.out.println("");
+        System.out.println("Muestra todas las conecciones de ese nodo tras la adicion del nodo 6");
+        System.out.println("Por fila: ");
+        // Matriz Adyacencia
+        for (int i = 0; m.getMatrizAdyacencia().length > i; i++) {
+            System.out.print(m.getMatrizAdyacencia()[3 - 1][i] + " ");
+        }
+        System.out.println("");
+        // Matriz Coeficiencia
+        for (int i = 0; m.getMatrizAdyacencia().length > i; i++) {
+            System.out.print(m.getMatriz()[3 - 1][i] + " ");
+        }
+        System.out.println("");
+        System.out.println("Por columna: ");
+        // Matriz Adyacencia
+        for (int i = 0; m.getMatrizAdyacencia()[0].length > i; i++) {
+            System.out.print(m.getMatrizAdyacencia()[i][3 - 1] + " ");
+        }
+        System.out.println("");
+        // Matriz Coeficiencia
+        for (int i = 0; m.getMatrizAdyacencia()[0].length > i; i++) {
+            System.out.print(m.getMatriz()[i][3 - 1] + " ");
+        }
+        System.out.println("");
     }
 
 }
